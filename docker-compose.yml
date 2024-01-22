@@ -1,0 +1,24 @@
+version: '3.8'
+
+networks:
+  network-ag:
+    driver: bridge
+
+services:
+  db:
+    container_name: dbmysql
+    image: mysql:8.0
+    networks: 
+      - network
+    restart: always
+    environment: 
+      - MYSQL_ROOT_PASSWORD=secret
+      - MYSQL_USER=admin
+      - MYSQL_PASSWORD=declare de acordo com seus padrões
+      - MYSQL_DATABASE=okmdb
+      - MYSQL_CHARSET=utf8mb4  
+      - MYSQL_COLLATION=utf8mb4_unicode_ci  
+    volumes: 
+      - ./mysql_data:/var/lib/mysql 
+    ports:
+      - "3306:3306" 
