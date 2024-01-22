@@ -22,3 +22,24 @@ services:
       - ./mysql_data:/var/lib/mysql 
     ports:
       - "3306:3306" 
+
+openkm-ce:
+    container_name: openkm-prod
+    image: openkm/openkm-ce:latest
+    networks:
+      - network
+    links:
+      - db
+    restart: always
+    environment: 
+      - DB_SERVER_HOST=db
+      - MYSQL_USER=admin
+      - MYSQL_PASSWORD=Declare de acordo com seus padrões
+      - MYSQL_DATABASE=okmdb
+    volumes:
+      - ./openkm_data:/opt/tomcat/OpenKM
+      - ./openkm_logs:/opt/tomcat/logs
+    ports:
+      - "80:8080"  
+    depends_on:
+      - db
